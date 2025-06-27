@@ -3,29 +3,35 @@ services:
   backend:
     build: ./backend
     container_name: edulense-backend
-    env_file:
-      - ./backend/.env
-    volumes:
-      - ./backend/app:/app/app
-      - ./backend/data:/app/data
-      - ./backend/uploads:/app/uploads
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://edulense:edulense@postgres:5432/edulense
     ports:
       - "8000:8000"
     depends_on:
-      - db
-  frontend:
-    build: ./frontend
-    container_name: edulense-frontend
-    volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
+      - postgres
+      - ai
+  ai:
+    build: ./ai
+    container_name: edulense-ai
     ports:
-      - "3000:80"
-    depends_on:
-      - backend
-  db:
-    image: sqlite
-    container_name: edulense-db
+      - "8001:8001"
+  postgres:
+    image: postgres:15
+    container_name: edulense-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: edulense
+      POSTGRES_PASSWORD: edulense
+      POSTGRES_DB: edulense
+    ports:
+      - "5432:5432"
     volumes:
-      - ./backend/data:/data
-    command: ["tail", "-f", "/dev/null"] # Keeps the container running for volume 
+      - postgres_data:/var/lib/postgresql/data
+  frontend:
+    image: node:20-alpine
+    container_name: edulense-frontend
+    command: tail -f /dev/null # Placeholder, replace with real build
+    ports:
+      - "3000:3000"
+volumes:
+  postgres_data: 

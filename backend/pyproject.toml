@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "edulense-backend"
+version = "0.1.0"
+description = "Backend API for EduLense"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.110.0"
+sqlmodel = "^0.0.16"
+asyncpg = "^0.29.0"
+uvicorn = "^0.34.3"
+httpx = "^0.28.1"
+python-multipart = "^0.0.20"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0" 

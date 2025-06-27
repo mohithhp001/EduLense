@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "edulense-ai"
+version = "0.1.0"
+description = "AI microservice for EduLense (RAG, Q&A, MCP, etc.)"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.110.0"
+uvicorn = "^0.29.0"
+httpx = "^0.28.1"
+python-multipart = "^0.0.20"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0" 
